@@ -25,3 +25,11 @@ TODO: Write development instructions here
 ## Contributors
 
 - [Fryguy](https://github.com/Fryguy) Jason Frey - creator, maintainer
+
+## License
+
+The project is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+The [CargoShorts logo](public/images/logo.svg) is created by [Chameleon Design](https://thenounproject.com/Chamedesign)
+and obtained from the [Noun Project](https://thenounproject.com/browse/?i=230603)
+under the terms of the [Creative Commons Attribution 3.0 US license](https://creativecommons.org/licenses/by/3.0/us).
