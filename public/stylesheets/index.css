@@ -1,0 +1,17 @@
+#main {
+	margin: auto;
+	width: 30%;
+	padding: 10px;
+	text-align: center;
+}
+
+#main #bluejeans {
+	width: 100px;
+	height: 100px;
+}
+
+.flash_error {
+	background-color: pink;
+	border: 3px solid red;
+	line-height: 2em;
+}

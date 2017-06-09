@@ -2,3 +2,6 @@
 /lib/
 /bin/
 /.shards/
+
+/shard.lock
+/bluejeans_kiosk

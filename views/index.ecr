@@ -1,0 +1,28 @@
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
+</head>
+<body>
+<div id="main">
+	<img id="bluejeans" src="/images/bluejeans.jpg"><br />
+	<% if error %>
+		<p class="flash_error"><%= error %></p>
+		<br />
+	<% end %>
+	<% if !launcher.started? %>
+		<form action="/start_meeting">
+			Meeting ID: <input type="text" name="meeting_id"><br />
+			Passcode: <input type="text" name="passcode"><br />
+			<br />
+			<button type="submit">Submit</button>
+		</form>
+	<% else %>
+		<form action="/stop_meeting">
+			Currently in meeting <%= launcher.meeting_id %>.<br />
+			<br />
+			<button type="submit">Stop Meeting</button>
+		</form>
+	<% end %>
+</div>
+</body>
+</html>
