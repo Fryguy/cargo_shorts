@@ -1,0 +1,13 @@
+name: bluejeans_kiosk
+version: 0.1.0
+
+authors:
+  - Jason Frey <fryguy9@gmail.com>
+
+targets:
+  bluejeans_kiosk:
+    main: src/bluejeans_kiosk.cr
+
+crystal: 0.22.0
+
+license: MIT
