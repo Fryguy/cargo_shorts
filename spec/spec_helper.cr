@@ -1,2 +1,2 @@
 require "spec"
-require "../src/bluejeans_kiosk"
+require "../src/bluejeans_kiosk/*"
