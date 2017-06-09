@@ -1,0 +1,13 @@
+name: cargo_shorts
+version: 0.1.0
+
+authors:
+  - Jason Frey <fryguy9@gmail.com>
+
+targets:
+  cargo_shorts:
+    main: src/cargo_shorts.cr
+
+crystal: 0.22.0
+
+license: MIT
