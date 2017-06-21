@@ -1,12 +1,14 @@
 // ==UserScript==
 // @name         BlueJeans Kiosk
 // @namespace    http://github.com/Fryguy/bluejeans_kiosk
-// @version      0.2
+// @version      0.2.1
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
 // @run-at       document-end
 // @grant        GM_xmlhttpRequest
+// @grant        GM_getValue
+// @grant        GM_setValue
 // @connect      localhost
 // ==/UserScript==
 
@@ -63,18 +65,8 @@
     }
 
     function doLogin() {
-        GM_xmlhttpRequest({
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-            },
-            url: "http://localhost:3000/configuration.json",
-            onload: function(response) {
-                var json = JSON.parse(response.responseText);
-                guestLoginInput().value = json.name;
-                guestLoginButton().click();
-            }
-        });
+        guestLoginInput().value = configuration().name;
+        guestLoginButton().click();
     }
 
     function doAudioOptions() {
@@ -85,5 +77,19 @@
         joinMeetingButton().click();
     }
 
-    waitForEntrypoint();
+    function configuration() {
+        return JSON.parse(GM_getValue("configuration"));
+    }
+
+    GM_xmlhttpRequest({
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+        },
+        url: "http://localhost:3000/configuration.json",
+        onload: function(response) {
+            GM_setValue("configuration", response.responseText);
+            waitForEntrypoint();
+        }
+    });
 })();
