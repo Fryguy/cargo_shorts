@@ -4,3 +4,4 @@
 /.shards/
 
 /shard.lock
+/public/configuration.json

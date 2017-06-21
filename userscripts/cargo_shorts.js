@@ -5,8 +5,9 @@
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
-// @grant        none
 // @run-at       document-end
+// @grant        GM_xmlhttpRequest
+// @connect      localhost
 // ==/UserScript==
 
 (function() {
@@ -62,8 +63,18 @@
     }
 
     function doLogin() {
-        guestLoginInput().value = "CargoShorts";
-        guestLoginButton().click();
+        GM_xmlhttpRequest({
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+            },
+            url: "http://localhost:3000/configuration.json",
+            onload: function(response) {
+                var json = JSON.parse(response.responseText);
+                guestLoginInput().value = json.name;
+                guestLoginButton().click();
+            }
+        });
     }
 
     function doAudioOptions() {
