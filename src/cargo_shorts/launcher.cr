@@ -24,7 +24,7 @@ module CargoShorts
       @meeting_id = meeting_id
       @passcode = passcode
 
-      puts "LAUNCHING #{bluejeans_url}"
+      launch_in_chrome
 
       @started = true
     end
@@ -32,11 +32,19 @@ module CargoShorts
     def stop
       raise "cannot stop if not already started" unless started?
 
-      puts "STOPPING #{meeting_id}"
+      stop_chrome
 
       @meeting_id = nil
       @passcode = nil
       @started = false
+    end
+
+    private def launch_in_chrome
+      Process.new("/opt/google/chrome/chrome", args: [bluejeans_url, "--kiosk"], env: {"DISPLAY" => "0"})
+    end
+
+    private def stop_chrome
+      Process.new("killall", args: ["chrome"])
     end
   end
 end
