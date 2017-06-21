@@ -13,7 +13,7 @@ end
 
 get "/" do |env|
   error = env.params.query["error"]?
-  render "views/index.ecr"
+  render "src/views/index.ecr"
 end
 
 get "/start_meeting" do |env|
