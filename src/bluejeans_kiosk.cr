@@ -20,8 +20,16 @@ get "/start_meeting" do |env|
   begin
     meeting_id = env.params.query["meeting_id"]?
     passcode = env.params.query["passcode"]?
+    url = env.params.query["url"]?
 
-    launcher.start(meeting_id, passcode)
+    meeting_info =
+      if url.nil? || url.empty?
+        {meeting_id, passcode}
+      else
+        url
+      end
+
+    launcher.start(meeting_info)
 
     env.redirect "/"
   rescue err
