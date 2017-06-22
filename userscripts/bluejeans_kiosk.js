@@ -2,7 +2,7 @@
 // @name         BlueJeans Kiosk
 // @namespace    http://github.com/Fryguy/bluejeans_kiosk
 // @updateURL    https://raw.githubusercontent.com/Fryguy/bluejeans_kiosk/master/userscripts/bluejeans_kiosk.js
-// @version      0.2.1
+// @version      0.3.0
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
@@ -29,47 +29,64 @@
         return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinComputer");
     }
 
+    function phoneAudioButton() {
+        return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinPhone");
+    }
+
+    function callMeTab() {
+        return document.querySelector(".primaryPhoneDialog[style*=\"visible\"] .callMeOption");
+    }
+
+    function phoneNumberInput() {
+        return document.querySelector(".primaryPhoneDialog[style*=\"visible\"] .callMeContainer input");
+    }
+
+    function callMeNowButton() {
+        return document.querySelector(".primaryPhoneDialog[style*=\"visible\"] .callMeContainer button");
+    }
+
     function joinMeetingButton() {
-        return document.querySelector("#modalContentMain > div.options.dynamicTooltipEl > div.decisionsHolder.connectionSwitching > div > div.enterHolder > button");
+        return document.querySelector(".primaryComputerDialog[style*=\"visible\"] .decisionsHolder button");
     }
 
-    function waitForLoginInput() {
-        if (guestLoginInput()) {
-            doLogin();
-            waitForComputerAudioButton();
+    function waitFor(waitingFor, callback) {
+        console.log("BlueJeans Kiosk is waiting for " + waitingFor.name);
+        if (waitingFor()) {
+            callback();
         } else {
-            setTimeout(waitForLoginInput, 1000);
+            setTimeout(waitFor, 1000, waitingFor, callback);
         }
     }
 
-    function waitForComputerAudioButton() {
-        if (computerAudioButton()) {
-            doAudioOptions();
-            waitForJoinMeetingButton();
-        } else {
-            setTimeout(waitForComputerAudioButton, 1000);
-        }
-    }
-
-    function waitForJoinMeetingButton() {
-        if (joinMeetingButton()) {
-            doJoinMeeting();
-        } else {
-            setTimeout(waitForJoinMeetingButton, 1000);
-        }
+    function doEntrypoint() {
+        waitFor(guestLoginInput, doLogin);
     }
 
     function doLogin() {
         guestLoginInput().value = configuration().name;
         guestLoginButton().click();
+        waitFor(computerAudioButton, doAudioOptions);
     }
 
     function doAudioOptions() {
-        computerAudioButton().click();
+        if (configuration().phone) {
+            phoneAudioButton().click();
+            waitFor(callMeTab, doEnterPhoneNumber);
+        } else {
+            computerAudioButton().click();
+            waitFor(joinMeetingButton, doJoinMeeting);
+        }
+    }
+
+    function doEnterPhoneNumber() {
+        callMeTab().click();
+        phoneNumberInput().value = configuration().phone;
+        callMeNowButton().click();
+        waitFor(joinMeetingButton, doJoinMeeting);
     }
 
     function doJoinMeeting() {
-        joinMeetingButton().click();
+        joinMeetingButton().click(); // FIN
     }
 
     function configuration() {
@@ -84,11 +101,11 @@
         url: "http://localhost:3000/configuration.json",
         onload: function(response) {
             GM_setValue("configuration", response.responseText);
-            waitForLoginInput();
+            doEntrypoint();
         },
         onerror: function(response) {
             GM_setValue("configuration", JSON.stringify({"name": "BlueJeans Kiosk"}));
-            waitForLoginInput();
+            doEntrypoint();
         }
     });
 })();
