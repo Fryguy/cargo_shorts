@@ -1,30 +1,31 @@
 <html>
 <head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
 </head>
 <body>
-<div id="main">
-	<img id="logo" src="/images/logo.svg"><br />
-	<% if error %>
-		<p class="flash_error"><%= error %></p>
-		<br />
-	<% end %>
+<div id="main" class="container">
 	<% if !launcher.started? %>
-		<form action="/start_meeting">
-			Meeting ID: <input type="text" name="meeting_id"><br />
-			Passcode: <input type="text" name="passcode"><br />
-			<br />
-			OR
-			<br /><br />
-			URL: <input type="text" name="url"><br />
-			<br />
-			<button type="submit">Submit</button>
+		<form class="form-signin" action="/start_meeting">
+			<h2 class="form-signin-heading"><img id="logo" src="/images/logo.svg"></h2>
+			<% if error %>
+				<div class="alert alert-danger" role="alert"><strong>Error:</strong> <%= error %></div>
+			<% end %>
+			<label for="meeting_id" class="sr-only">Meeting ID</label>
+			<input type="text" name="meeting_id" class="form-control" placeholder="Meeting ID" autofocus>
+			<label for="passcode" class="sr-only">Passcode</label>
+			<input type="text" name="passcode" class="form-control" placeholder="Passcode">
+			<h3 class="form-signin-heading">OR</h3>
+			<label for="url" class="sr-only">URL</label>
+			<input type="text" name="url" class="form-control" placeholder="URL">
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Start Meeting</button>
 		</form>
 	<% else %>
-		<form action="/stop_meeting">
-			Currently in meeting <%= launcher.url %>.<br />
-			<br />
-			<button type="submit">Stop Meeting</button>
+		<form class="form-signin" action="/stop_meeting">
+			<h2 class="form-signin-heading"><img id="log" src="/images/logo.svg"></h2>
+			<div class="alert alert-info" role="alert">Currently in meeting <%= launcher.url %></div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Stop Meeting</button>
 		</form>
 	<% end %>
 </div>

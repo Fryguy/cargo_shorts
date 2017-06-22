@@ -1,17 +1,28 @@
-#main {
-	margin: auto;
-	width: 30%;
-	padding: 10px;
-	text-align: center;
+.form-signin {
+	max-width: 350px;
+	padding: 15px;
+	margin: 0 auto;
 }
-
-#main #logo {
+.form-signin #logo {
 	width: 100px;
 	height: 100px;
 }
-
-.flash_error {
-	background-color: pink;
-	border: 3px solid red;
-	line-height: 2em;
+.form-signin .form-signin-heading {
+	text-align: center;
 }
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+.form-signin button {
+	margin-top: 15px;
+}
+

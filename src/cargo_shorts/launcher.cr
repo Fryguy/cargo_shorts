@@ -13,7 +13,7 @@ module CargoShorts
 
     # Start the meeting with the specified URL or meeting_id/passcode Tuple
     def start(meeting_info : String | Tuple(String?, String?))
-      raise "cannot start if already started" if started?
+      raise "Cannot start if already started" if started?
 
       @url = meeting_info.is_a?(String) ? validate_url(meeting_info) : build_url(meeting_info)
 
@@ -24,7 +24,7 @@ module CargoShorts
 
     # Stop the current meeting
     def stop
-      raise "cannot stop if not already started" unless started?
+      raise "Cannot stop if not already started" unless started?
 
       stop_chrome
 
@@ -34,7 +34,7 @@ module CargoShorts
 
     private def build_url(meeting_info)
       meeting_id, passcode = meeting_info
-      raise "meeting_id cannot be blank" if meeting_id.nil? || meeting_id.empty?
+      raise "Meeting ID cannot be blank" if meeting_id.nil? || meeting_id.empty?
 
       String.build do |url|
         url << "https://bluejeans.com/" << meeting_id
@@ -46,7 +46,7 @@ module CargoShorts
       parsed = URI.parse(url)
       unless parsed.host.try &.ends_with?("bluejeans.com") &&
              parsed.path.try &.match(%r{\A/\w+(?:/[0-9]+)?\Z})
-        raise "invalid URL"
+        raise "Invalid URL"
       end
 
       url
