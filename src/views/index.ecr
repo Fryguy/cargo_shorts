@@ -14,11 +14,15 @@
 			Meeting ID: <input type="text" name="meeting_id"><br />
 			Passcode: <input type="text" name="passcode"><br />
 			<br />
+			OR
+			<br /><br />
+			URL: <input type="text" name="url"><br />
+			<br />
 			<button type="submit">Submit</button>
 		</form>
 	<% else %>
 		<form action="/stop_meeting">
-			Currently in meeting <%= launcher.meeting_id %>.<br />
+			Currently in meeting <%= launcher.url %>.<br />
 			<br />
 			<button type="submit">Stop Meeting</button>
 		</form>
