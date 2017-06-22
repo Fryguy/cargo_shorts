@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         BlueJeans Kiosk
 // @namespace    http://github.com/Fryguy/bluejeans_kiosk
+// @updateURL    https://raw.githubusercontent.com/Fryguy/bluejeans_kiosk/master/userscripts/bluejeans_kiosk.js
 // @version      0.2.1
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
