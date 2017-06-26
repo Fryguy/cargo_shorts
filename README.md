@@ -27,14 +27,39 @@ phone system in each room and thats it.
   b. Quit Chrome.
 5. Create a DNS entry for this computer.
 
-### Installing BlueJeans Kiosk
+### Installing
 
 1. Install openssl-devel and crystal.
-2. `cd ~`
-3. `git clone git@github.com:Fryguy/bluejeans_kiosk.git`
-4. `cd bluejeans_kiosk`
-5. `shards build --release`
-6. `sudo bin/bluejeans_kiosk -p 80 &` # TODO: Make this a daemon process
+2. Build
+
+   ```bash
+   cd ~
+   git clone git@github.com:Fryguy/bluejeans_kiosk.git
+   cd bluejeans_kiosk
+   shards build --release
+   ```
+
+3. `sudo bin/bluejeans_kiosk -p 80 &` # TODO: Make this a daemon process
+
+### Configuring
+
+1. `cd bluejeans_kiosk`
+2. Create a public/configuration.json file with the following content:
+
+   ```json
+   {
+     "name": "Your Room Name",
+     "x_username": "test",
+     "phone": "1234567890"
+   }
+   ```
+
+   where
+
+   - `name`: The name as you want it to appear in the Participants list.
+   - `x_username`: The username that was set up in Step 1 that is automatically logged in.
+   - `phone`: An optional phone number if you have an in-room phone system and
+     you want BlueJeans to call it.
 
 ## Usage
 
