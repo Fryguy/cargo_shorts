@@ -53,11 +53,19 @@ module CargoShorts
     end
 
     private def launch_in_chrome(url)
-      Process.new("/opt/google/chrome/chrome", args: [url, "--kiosk"], env: {"DISPLAY" => ":0"})
+      Process.new("su #{user} -c 'DISPLAY=:0 /opt/google/chrome/chrome #{url} --kiosk'", shell: true)
     end
 
     private def stop_chrome
       Process.new("killall", args: ["chrome"])
+    end
+
+    private def user
+      configuration["x_username"].as_s
+    end
+
+    private def configuration
+      JSON.parse(File.read(File.expand_path("../../public/configuration.json", __DIR__)))
     end
   end
 end
