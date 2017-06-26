@@ -2,7 +2,7 @@
 // @name         CargoShorts
 // @namespace    http://github.com/Fryguy/cargo_shorts
 // @updateURL    https://raw.githubusercontent.com/Fryguy/cargo_shorts/master/userscripts/cargo_shorts.js
-// @version      0.3.0
+// @version      0.3.1
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
@@ -81,6 +81,13 @@
     function doEnterPhoneNumber() {
         callMeTab().click();
         phoneNumberInput().value = configuration().phone;
+        // Delay the click of the callMeNowButton to prevent a race with
+        // BlueJeans trying to set up the session
+        console.log("CargoShorts is delaying click of callMeNowButton");
+        setTimeout(doCallMeNow, 1000);
+    }
+
+    function doCallMeNow() {
         callMeNowButton().click();
         waitFor(joinMeetingButton, doJoinMeeting);
     }
