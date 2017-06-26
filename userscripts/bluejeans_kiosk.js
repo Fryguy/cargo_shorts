@@ -2,7 +2,7 @@
 // @name         BlueJeans Kiosk
 // @namespace    http://github.com/Fryguy/bluejeans_kiosk
 // @updateURL    https://raw.githubusercontent.com/Fryguy/bluejeans_kiosk/master/userscripts/bluejeans_kiosk.js
-// @version      0.3.0
+// @version      0.3.1
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
@@ -81,6 +81,13 @@
     function doEnterPhoneNumber() {
         callMeTab().click();
         phoneNumberInput().value = configuration().phone;
+        // Delay the click of the callMeNowButton to prevent a race with
+        // BlueJeans trying to set up the session
+        console.log("BlueJeans Kiosk is delaying click of callMeNowButton");
+        setTimeout(doCallMeNow, 1000);
+    }
+
+    function doCallMeNow() {
         callMeNowButton().click();
         waitFor(joinMeetingButton, doJoinMeeting);
     }
