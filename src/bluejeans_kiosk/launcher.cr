@@ -8,6 +8,7 @@ module BluejeansKiosk
     end
 
     def initialize
+      enable_display_control
       # TODO: Detect an already running application and set started = true
     end
 
@@ -17,6 +18,7 @@ module BluejeansKiosk
 
       @url = meeting_info.is_a?(String) ? validate_url(meeting_info) : build_url(meeting_info)
 
+      start_display
       launch_in_chrome(@url.not_nil!)
 
       @started = true
@@ -27,6 +29,7 @@ module BluejeansKiosk
       raise "Cannot stop if not already started" unless started?
 
       stop_chrome
+      stop_display
 
       @url = nil
       @started = false
@@ -52,12 +55,24 @@ module BluejeansKiosk
       url
     end
 
+    private def enable_display_control
+      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xhost +localhost", shell: true).wait
+    end
+
     private def launch_in_chrome(url)
       Process.new("su #{user} -c 'DISPLAY=:0 /opt/google/chrome/chrome #{url} --kiosk'", shell: true)
     end
 
+    private def start_display
+      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xset dpms force on", shell: true)
+    end
+
     private def stop_chrome
       Process.new("killall", args: ["chrome"])
+    end
+
+    private def stop_display
+      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xset dpms force off", shell: true)
     end
 
     private def user
