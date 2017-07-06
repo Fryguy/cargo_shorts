@@ -2,7 +2,6 @@ module CargoShorts
   class Launcher
     getter url : String?
     getter? started
-
     @x_authority : String?
     @x_username : String?
 
@@ -12,7 +11,9 @@ module CargoShorts
 
     def initialize
       enable_display_control
-      # TODO: Detect an already running application and set started = true
+
+      @url = launched_url
+      @started = !!@url
     end
 
     # Start the meeting with the specified URL or meeting_id/passcode Tuple
@@ -60,6 +61,12 @@ module CargoShorts
 
     private def enable_display_control
       Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xhost +localhost", shell: true).wait
+    end
+
+    private def launched_url
+      process = `pgrep chrome -al | grep bluejeans.com`.split("\n").first
+      return if process.blank?
+      process.match(/https:[^ ]+/).not_nil![0]
     end
 
     private def launch_in_chrome(url)
