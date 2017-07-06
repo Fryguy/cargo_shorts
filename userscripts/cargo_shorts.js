@@ -105,7 +105,7 @@
         headers: {
             Accept: "application/json",
         },
-        url: "http://localhost:3000/configuration.json",
+        url: "http://localhost/configuration.json",
         onload: function(response) {
             GM_setValue("configuration", response.responseText);
             doEntrypoint();
