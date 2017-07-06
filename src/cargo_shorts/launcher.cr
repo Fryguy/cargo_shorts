@@ -3,6 +3,9 @@ module CargoShorts
     getter url : String?
     getter? started
 
+    @x_authority : String?
+    @x_username : String?
+
     def self.instance
       @@instance ||= new
     end
@@ -56,15 +59,15 @@ module CargoShorts
     end
 
     private def enable_display_control
-      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xhost +localhost", shell: true).wait
+      Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xhost +localhost", shell: true).wait
     end
 
     private def launch_in_chrome(url)
-      Process.new("su #{user} -c 'DISPLAY=:0 /opt/google/chrome/chrome #{url} --kiosk'", shell: true)
+      Process.new("su #{x_username} -c 'DISPLAY=:0 /opt/google/chrome/chrome #{url} --kiosk'", shell: true)
     end
 
     private def start_display
-      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xset dpms force on", shell: true)
+      Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xset dpms force on", shell: true)
     end
 
     private def stop_chrome
@@ -72,15 +75,16 @@ module CargoShorts
     end
 
     private def stop_display
-      Process.new("XAUTHORITY=$(find /run/user/*/gdm/Xauthority) DISPLAY=:0 xset dpms force off", shell: true)
+      Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xset dpms force off", shell: true)
     end
 
-    private def user
-      configuration["x_username"].as_s
+    private def x_authority
+      @x_authority ||= `find /run/user/*/gdm/Xauthority`.chomp
     end
 
-    private def configuration
-      JSON.parse(File.read(File.expand_path("../../public/configuration.json", __DIR__)))
+    private def x_username
+      @x_username ||=
+        `getent passwd #{x_authority.split("/")[3]}`.split(":").first
     end
   end
 end

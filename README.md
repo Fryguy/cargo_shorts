@@ -51,7 +51,6 @@ phone system in each room and thats it.
    ```json
    {
      "name": "Your Room Name",
-     "x_username": "test",
      "phone": "1234567890"
    }
    ```
@@ -59,7 +58,6 @@ phone system in each room and thats it.
    where
 
    - `name`: The name as you want it to appear in the Participants list.
-   - `x_username`: The username that was set up in Step 1 that is automatically logged in.
    - `phone`: An optional phone number if you have an in-room phone system and
      you want BlueJeans to call it.
 
