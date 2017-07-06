@@ -1,5 +1,7 @@
 # CargoShorts
 
+[![Build Status](https://travis-ci.org/Fryguy/cargo_shorts.svg?branch=master)](https://travis-ci.org/Fryguy/cargo_shorts)
+
 CargoShorts is a simple set of tools that allow you to create a basic room
 system for BlueJeans.  You will need a dedicated microcomputer, camera, TV, and
 phone system in each room and thats it.
