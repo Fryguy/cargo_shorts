@@ -19,11 +19,12 @@ module CargoShorts
     def start(meeting_info : String | Tuple(String?, String?))
       raise "Cannot start if already started" if started?
 
-      @url = meeting_info.is_a?(String) ? validate_url(meeting_info) : build_url(meeting_info)
+      url = meeting_info.is_a?(String) ? validate_url(meeting_info) : build_url(meeting_info)
 
       start_display
-      launch_in_chrome(@url.not_nil!)
+      launch_in_chrome(url)
 
+      @url = url
       @started = true
     end
 
