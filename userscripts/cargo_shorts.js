@@ -17,6 +17,10 @@
 (function() {
     'use strict';
 
+    /****************************/
+    /* Element selector methods */
+    /****************************/
+
     function guestLoginInput() {
         return document.querySelector(".guestView.panel > div:nth-child(2) > input");
     }
@@ -49,14 +53,9 @@
         return document.querySelector(".primaryComputerDialog[style*=\"visible\"] .decisionsHolder button");
     }
 
-    function waitFor(waitingFor, callback) {
-        console.log("CargoShorts is waiting for " + waitingFor.name);
-        if (waitingFor()) {
-            callback();
-        } else {
-            setTimeout(waitFor, 1000, waitingFor, callback);
-        }
-    }
+    /********************/
+    /* Workflow methods */
+    /********************/
 
     function doEntrypoint() {
         waitFor(guestLoginInput, doLogin);
@@ -96,15 +95,30 @@
         joinMeetingButton().click(); // FIN
     }
 
+    /*********************/
+    /* Framework Methods */
+    /*********************/
+
+    function waitFor(waitingFor, callback) {
+        console.log("CargoShorts is waiting for " + waitingFor.name);
+        if (waitingFor()) {
+            callback();
+        } else {
+            setTimeout(waitFor, 1000, waitingFor, callback);
+        }
+    }
+
     function configuration() {
         return JSON.parse(GM_getValue("configuration"));
     }
 
+    /*******************/
+    /* Main entrypoint */
+    /*******************/
+
     GM_xmlhttpRequest({
         method: "GET",
-        headers: {
-            Accept: "application/json",
-        },
+        headers: { Accept: "application/json" },
         url: "http://localhost/configuration.json",
         onload: function(response) {
             GM_setValue("configuration", response.responseText);
