@@ -26,12 +26,17 @@ phone system in each room and thats it.
 
 ### Installing
 
-1. Install crystal. https://crystal-lang.org/docs/installation/on_redhat_and_centos.html
-2. Build
+1. Install Crystal dependencies
 
    ```bash
    dnf -y install openssl-devel
-   git clone https://github.com/Fryguy/cargo_shorts.git /opt/cargo_shorts2
+   ```
+
+2. [Install Crystal](https://crystal-lang.org/docs/installation/on_redhat_and_centos.html)
+3. Build
+
+   ```bash
+   git clone https://github.com/Fryguy/cargo_shorts.git /opt/cargo_shorts
    pushd /opt/cargo_shorts
      shards build --release
    popd
