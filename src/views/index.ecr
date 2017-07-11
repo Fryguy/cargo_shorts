@@ -6,7 +6,7 @@
 </head>
 <body>
 <div id="main" class="container">
-	<% if !launcher.started? %>
+	<% if !orchestrator.started? %>
 		<form class="form-signin" action="/start_meeting">
 			<h2 class="form-signin-heading"><img id="logo" src="/images/logo.svg"></h2>
 			<% if error %>
@@ -24,7 +24,7 @@
 	<% else %>
 		<form class="form-signin" action="/stop_meeting">
 			<h2 class="form-signin-heading"><img id="logo" src="/images/logo.svg"></h2>
-			<div class="alert alert-info" role="alert">Currently in meeting <%= launcher.url %></div>
+			<div class="alert alert-info" role="alert">Currently in meeting <%= orchestrator.url %></div>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Stop Meeting</button>
 		</form>
 	<% end %>
