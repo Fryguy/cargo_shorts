@@ -11,17 +11,23 @@ phone system in each room and thats it.
 ### Set up the in-room microcomputer
 
 1. Install Fedora.
+
   a. Create a user and set it to Automatic Login.
   b. Go to Settings -> Privacy and disable Screen Lock.
   c. Go to Settings -> Notifications and disable Notification Banners.
   d. Go to Settings -> Power and set Blank Screen to Never.
+
 2. Install Chrome.
+
   a. Make sure it's the default browser.
+
 3. Do an initial connection to a BlueJeans meeting to get past the first-time tooltips.
+
   a. Enable camera and audio.
   b. Set microphone, camera, and notifications prompts to Allow, when asked.
   c. Dismiss BlueJeans specific tooltips.
   d. Close the meeting.
+
 4. Create a DNS entry for this computer.
 
 ### Installing
@@ -38,6 +44,7 @@ phone system in each room and thats it.
 
 3. `sudo bin/cargo_shorts -p 80 &` # TODO: Make this a daemon process
 4. Install Tampermonkey extension in Chrome.
+
   a. Import the script by going to Tampermonkey -> Utilities -> URL, enter
      http://localhost/userscripts/cargo_shorts.js , press Import, and then press
      Install.
