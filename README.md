@@ -22,12 +22,7 @@ phone system in each room and thats it.
   b. Set microphone, camera, and notifications prompts to Allow, when asked.
   c. Dismiss BlueJeans specific tooltips.
   d. Close the meeting.
-4. Install Tampermonkey extension in Chrome.
-  a. Import the script by going to Tampermonkey -> Utilities -> URL, enter
-     https://raw.githubusercontent.com/Fryguy/cargo_shorts/master/userscripts/cargo_shorts.js ,
-     press Import, and then press Install.
-  b. Quit Chrome.
-5. Create a DNS entry for this computer.
+4. Create a DNS entry for this computer.
 
 ### Installing
 
@@ -42,6 +37,11 @@ phone system in each room and thats it.
    ```
 
 3. `sudo bin/cargo_shorts -p 80 &` # TODO: Make this a daemon process
+4. Install Tampermonkey extension in Chrome.
+  a. Import the script by going to Tampermonkey -> Utilities -> URL, enter
+     http://localhost/userscripts/cargo_shorts.js , press Import, and then press
+     Install.
+  b. Quit Chrome.
 
 ### Configuring
 
