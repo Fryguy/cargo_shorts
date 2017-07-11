@@ -1,5 +1,5 @@
 module CargoShorts
-  class Launcher
+  class Orchestrator
     getter url : String?
     getter? started
 

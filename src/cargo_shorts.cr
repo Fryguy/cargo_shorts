@@ -7,8 +7,8 @@ def to_url_with_params(to path, params)
   path
 end
 
-def launcher
-  CargoShorts::Launcher.instance
+def orchestrator
+  CargoShorts::Orchestrator.instance
 end
 
 get "/" do |env|
@@ -29,7 +29,7 @@ get "/start_meeting" do |env|
         url
       end
 
-    launcher.start(meeting_info)
+    orchestrator.start(meeting_info)
 
     env.redirect "/"
   rescue err
@@ -39,7 +39,7 @@ end
 
 get "/stop_meeting" do |env|
   begin
-    launcher.stop
+    orchestrator.stop
 
     env.redirect "/"
   rescue err
