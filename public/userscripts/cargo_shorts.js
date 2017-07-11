@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         CargoShorts
 // @namespace    http://github.com/Fryguy/cargo_shorts
-// @updateURL    https://raw.githubusercontent.com/Fryguy/cargo_shorts/master/userscripts/cargo_shorts.js
-// @version      0.3.1
+// @updateURL    http://localhost/userscripts/cargo_shorts.js
+// @version      0.4.0
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
 // @match        https://bluejeans.com/*
