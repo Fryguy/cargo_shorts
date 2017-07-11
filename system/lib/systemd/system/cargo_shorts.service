@@ -1,0 +1,13 @@
+[Unit]
+Description=cargo_shorts
+Documentation=https://github.com/Fryguy/cargo_shorts/blob/master/README.md
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/cargo_shorts
+ExecStart=/opt/cargo_shorts/bin/cargo_shorts -p 80
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

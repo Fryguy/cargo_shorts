@@ -26,18 +26,26 @@ phone system in each room and thats it.
 
 ### Installing
 
-1. Install openssl-devel and crystal.
+1. Install crystal. https://crystal-lang.org/docs/installation/on_redhat_and_centos.html
 2. Build
 
    ```bash
-   cd ~
-   git clone git@github.com:Fryguy/cargo_shorts.git
-   cd cargo_shorts
-   shards build --release
+   dnf -y install openssl-devel
+   git clone https://github.com/Fryguy/cargo_shorts.git /opt/cargo_shorts2
+   pushd /opt/cargo_shorts
+     shards build --release
+   popd
+   pushd /lib/systemd/system/
+     ln -s /opt/cargo_shorts/system/lib/systemd/system/cargo_shorts.service
+   popd
+   firewall-cmd --add-port=80/tcp --permanent
+   firewall-cmd --reload
+   systemctl daemon-reload
+   systemctl enable cargo_shorts
+   systemctl start cargo_shorts
    ```
 
-3. `sudo bin/cargo_shorts -p 80 &` # TODO: Make this a daemon process
-4. Install Tampermonkey extension in Chrome.
+3. Install Tampermonkey extension in Chrome.
   - Import the script by going to Tampermonkey -> Utilities -> URL, enter
     http://localhost/userscripts/cargo_shorts.js , press Import, and then press
     Install.
