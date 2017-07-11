@@ -47,4 +47,8 @@ get "/stop_meeting" do |env|
   end
 end
 
+ws "/ws" do |socket|
+  socket.send({action: "leave_meeting"}.to_json)
+end
+
 Kemal.run

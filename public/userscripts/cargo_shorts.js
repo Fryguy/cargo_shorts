@@ -92,7 +92,9 @@
     }
 
     function doJoinMeeting() {
-        joinMeetingButton().click(); // FIN
+        joinMeetingButton().click();
+
+        prepareWebSocket();
     }
 
     /*********************/
@@ -106,6 +108,14 @@
         } else {
             setTimeout(waitFor, 1000, waitingFor, callback);
         }
+    }
+
+    function prepareWebsocket() {
+        var socket = new WebSocket('ws://localhost:3000/ws');
+        socket.onmessage = function(event) {
+            var message = JSON.stringify(event.data);
+            alert(message);
+        };
     }
 
     function configuration() {
