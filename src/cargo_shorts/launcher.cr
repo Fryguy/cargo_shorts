@@ -60,37 +60,37 @@ module CargoShorts
     end
 
     private def enable_display_control
-      return if ENV["MANUAL_LAUNCH"]
+      return if ENV["MANUAL_LAUNCH"]?
       Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xhost +localhost", shell: true).wait
     end
 
     private def launch_in_chrome(url)
-      return if ENV["MANUAL_LAUNCH"]
+      return if ENV["MANUAL_LAUNCH"]?
       Process.new("su #{x_username} -c 'DISPLAY=:0 /opt/google/chrome/chrome #{url} --kiosk'", shell: true)
     end
 
     private def start_display
-      return if ENV["MANUAL_LAUNCH"]
+      return if ENV["MANUAL_LAUNCH"]?
       Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xset dpms force on", shell: true)
     end
 
     private def stop_chrome
-      return if ENV["MANUAL_LAUNCH"]
+      return if ENV["MANUAL_LAUNCH"]?
       Process.new("killall", args: ["chrome"])
     end
 
     private def stop_display
-      return if ENV["MANUAL_LAUNCH"]
+      return if ENV["MANUAL_LAUNCH"]?
       Process.new("XAUTHORITY=#{x_authority} DISPLAY=:0 xset dpms force off", shell: true)
     end
 
     private def x_authority
-      return "" if ENV["MANUAL_LAUNCH"]
+      return "" if ENV["MANUAL_LAUNCH"]?
       @x_authority ||= `find /run/user/*/gdm/Xauthority`.chomp
     end
 
     private def x_username
-      return "" if ENV["MANUAL_LAUNCH"]
+      return "" if ENV["MANUAL_LAUNCH"]?
       @x_username ||=
         `getent passwd #{x_authority.split("/")[3]}`.split(":").first
     end
