@@ -93,9 +93,9 @@ the same interface.
 
 ## Contributors
 
-- [Fryguy](https://github.com/Fryguy) Jason Frey - creator, maintainer
-- [bdunne](https://github.com/bdunne) Brandon Dunne
-- [epwinchell](https://github.com/epwinchell) Eric Winchell - design/graphics
+- [Fryguy](https://github.com/Fryguy) - Jason Frey - creator, maintainer
+- [bdunne](https://github.com/bdunne) - Brandon Dunne - maintainer
+- [epwinchell](https://github.com/epwinchell) - Eric Winchell - design/graphics
 
 ## License
 
