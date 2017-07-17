@@ -8,7 +8,7 @@ phone system in each room and thats it.
 
 ## Installation
 
-### Set up the in-room microcomputer
+### Set up the in-room computer
 
 1. Install Fedora.
    - Create a user and set it to Automatic Login.
@@ -33,13 +33,18 @@ phone system in each room and thats it.
    ```
 
 2. [Install Crystal](https://crystal-lang.org/docs/installation/on_redhat_and_centos.html)
-3. Build
+3. Build the application
 
    ```bash
    git clone https://github.com/Fryguy/cargo_shorts.git /opt/cargo_shorts
    pushd /opt/cargo_shorts
      shards build --release
    popd
+   ```
+
+4. Install and configure the service
+
+   ```bash
    pushd /lib/systemd/system/
      ln -s /opt/cargo_shorts/system/lib/systemd/system/cargo_shorts.service
    popd
@@ -50,7 +55,9 @@ phone system in each room and thats it.
    systemctl start cargo_shorts
    ```
 
-3. Install Tampermonkey extension in Chrome.
+5. Install and configure the browser-side userscript
+   - Install the [Tampermonkey extension](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
+     in Chrome.
    - Import the script by going to Tampermonkey -> Utilities -> URL, enter
      http://localhost/userscripts/cargo_shorts.js , press Import, and then press
      Install.
@@ -58,7 +65,7 @@ phone system in each room and thats it.
 
 ### Configuring
 
-1. `cd cargo_shorts`
+1. `cd /opt/cargo_shorts`
 2. Create a public/configuration.json file with the following content:
 
    ```json
@@ -77,9 +84,10 @@ phone system in each room and thats it.
 ## Usage
 
 If you've set up a DNS entry for the room, go to that room's URL.  You will be
-presented with a simple interface that allows you to enter the meeting ID and
-optional passcode.  CargoShorts will then launch a BlueJeans session and present
-on the in-room TV.  Additionally, it will dial the in-room phone system to be
+presented with a simple interface that allows you to enter either the meeting ID
+and optional passcode or the full URL to a meeting.  CargoShorts will then
+launch a BlueJeans session and present it on the in-room TV.  Additionally, if
+configured with a phone number, it will dial the in-room phone system to be
 used for audio.  When you are done with your meeting, end the meeting through
 the same interface.
 
