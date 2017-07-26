@@ -55,7 +55,7 @@ module CargoShorts
     private def validate_url(url)
       parsed = URI.parse(url)
       unless parsed.host.try &.ends_with?("bluejeans.com") &&
-             parsed.path.try &.match(%r{\A/\w+(?:/[0-9]+)?\Z})
+             parsed.path.try &.match(/\A\/(?:u\/)?\w+(?:\/[0-9]+)?\Z/)
         raise "Invalid URL"
       end
 
