@@ -1,9 +1,9 @@
 require "./cargo_shorts/*"
 require "kemal"
 
-def to_url_with_params(to path, params)
-  query = params.map { |k, v| "#{k}=#{v}" }.join("&")
-  path += "?#{query}" unless query.empty?
+def to(path, params = nil)
+  query = HTTP::Params.encode(params) if params
+  path += "?#{query}" if query && !query.empty?
   path
 end
 
@@ -31,9 +31,9 @@ get "/start_meeting" do |env|
 
     orchestrator.start(meeting_info)
 
-    env.redirect "/"
+    env.redirect to("/")
   rescue err
-    env.redirect to_url_with_params("/", {"error" => err.message})
+    env.redirect to("/", {"error" => err.message})
   end
 end
 
@@ -41,9 +41,9 @@ get "/stop_meeting" do |env|
   begin
     orchestrator.stop
 
-    env.redirect "/"
+    env.redirect to("/")
   rescue err
-    env.redirect to_url_with_params("/", {"error" => err.message})
+    env.redirect to("/", {"error" => err.message})
   end
 end
 
