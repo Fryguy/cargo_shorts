@@ -53,6 +53,10 @@
         return document.querySelector(".primaryComputerDialog[style*=\"visible\"] .decisionsHolder button");
     }
 
+    function meetingStage() {
+        return document.querySelector(".stage");
+    }
+
     /********************/
     /* Workflow methods */
     /********************/
@@ -93,6 +97,11 @@
 
     function doJoinMeeting() {
         joinMeetingButton().click(); // FIN
+        waitFor(meetingStage, doHideCursor);
+    }
+
+    function doHideCursor() {
+        document.body.style.cursor = 'none';
     }
 
     /*********************/
