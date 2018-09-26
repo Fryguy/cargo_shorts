@@ -14,6 +14,8 @@
 // @connect      localhost
 // ==/UserScript==
 
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
+
 (function() {
     'use strict';
 
@@ -30,11 +32,15 @@
     }
 
     function computerAudioButton() {
-        return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinComputer");
+        if ($(".computerAudio.audioOption").is(":visible")) {
+            return $(".computerAudio.audioOption");
+        }
     }
 
     function phoneAudioButton() {
-        return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinPhone");
+        if ($(".phoneAudio.audioOption").is(":visible")) {
+            return $(".phoneAudio.audioOption");
+        }
     }
 
     function callMeTab() {
@@ -115,6 +121,8 @@
     /*******************/
     /* Main entrypoint */
     /*******************/
+
+    var $ = unsafeWindow.jQuery;
 
     GM_xmlhttpRequest({
         method: "GET",
