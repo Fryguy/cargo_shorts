@@ -5,7 +5,7 @@
 // @version      0.4.0
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
-// @match        https://bluejeans.com/*
+// @match        https://*.bluejeans.com/*
 // @run-at       document-end
 // @noframes
 // @grant        GM_xmlhttpRequest
