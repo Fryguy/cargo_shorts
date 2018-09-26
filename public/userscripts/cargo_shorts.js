@@ -56,7 +56,15 @@
     }
 
     function joinMeetingButton() {
-        return document.querySelector(".primaryComputerDialog[style*=\"visible\"] .decisionsHolder button");
+        if ($(".primaryButton.green").is(":visible")) {
+            return $(".primaryButton.green");
+        }
+    }
+
+    function callDisconnectedDiv() {
+        if ($(".callDisconnectedBanner").is(":visible")) {
+            return $(".callDisconnectedBanner");
+        }
     }
 
     /********************/
@@ -99,6 +107,14 @@
 
     function doJoinMeeting() {
         joinMeetingButton().click(); // FIN
+        waitFor(callDisconnectedDiv, doEndMeeting);
+    }
+
+    function doEndMeeting() {
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: "http://localhost/stop_meeting",
+        });
     }
 
     /*********************/
