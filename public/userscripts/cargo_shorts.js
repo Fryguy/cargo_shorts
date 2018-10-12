@@ -5,7 +5,7 @@
 // @version      0.4.0
 // @description  Auto-click through BlueJeans screens
 // @author       Jason Frey
-// @match        https://bluejeans.com/*
+// @match        https://*.bluejeans.com/*
 // @run-at       document-end
 // @noframes
 // @grant        GM_xmlhttpRequest
@@ -13,6 +13,8 @@
 // @grant        GM_setValue
 // @connect      localhost
 // ==/UserScript==
+
+// @require      http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js
 
 (function() {
     'use strict';
@@ -30,11 +32,15 @@
     }
 
     function computerAudioButton() {
-        return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinComputer");
+        if ($(".computerAudio.audioOption").is(":visible")) {
+            return $(".computerAudio.audioOption");
+        }
     }
 
     function phoneAudioButton() {
-        return document.querySelector(".primaryConnectionsDialog[style*=\"visible\"] .joinPhone");
+        if ($(".phoneAudio.audioOption").is(":visible")) {
+            return $(".phoneAudio.audioOption");
+        }
     }
 
     function callMeTab() {
@@ -50,7 +56,15 @@
     }
 
     function joinMeetingButton() {
-        return document.querySelector(".primaryComputerDialog[style*=\"visible\"] .decisionsHolder button");
+        if ($(".primaryButton.green").is(":visible")) {
+            return $(".primaryButton.green");
+        }
+    }
+
+    function callDisconnectedDiv() {
+        if ($(".callDisconnectedBanner").is(":visible")) {
+            return $(".callDisconnectedBanner");
+        }
     }
 
     /********************/
@@ -93,6 +107,14 @@
 
     function doJoinMeeting() {
         joinMeetingButton().click(); // FIN
+        waitFor(callDisconnectedDiv, doEndMeeting);
+    }
+
+    function doEndMeeting() {
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: "http://localhost/stop_meeting",
+        });
     }
 
     /*********************/
@@ -115,6 +137,8 @@
     /*******************/
     /* Main entrypoint */
     /*******************/
+
+    var $ = unsafeWindow.jQuery;
 
     GM_xmlhttpRequest({
         method: "GET",
