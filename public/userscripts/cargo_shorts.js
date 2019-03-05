@@ -56,8 +56,8 @@
     }
 
     function joinMeetingButton() {
-        if ($(".primaryButton.green").is(":visible")) {
-            return $(".primaryButton.green");
+        if ($(".joinMeetingButtonContainer .primaryButton.green").is(":visible")) {
+            return $(".joinMeetingButtonContainer .primaryButton.green");
         }
     }
 
