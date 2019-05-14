@@ -32,14 +32,14 @@
     }
 
     function computerAudioButton() {
-        if ($(".computerAudio.audioOption").is(":visible")) {
-            return $(".computerAudio.audioOption");
+        if ($(".primaryOption.joinComputer").is(":visible")) {
+            return $(".primaryOption.joinComputer");
         }
     }
 
     function phoneAudioButton() {
-        if ($(".phoneAudio.audioOption").is(":visible")) {
-            return $(".phoneAudio.audioOption");
+        if ($(".primaryOption.joinPhone").is(":visible")) {
+            return $(".primaryOption.joinPhone");
         }
     }
 
@@ -56,8 +56,8 @@
     }
 
     function joinMeetingButton() {
-        if ($(".joinMeetingButtonContainer .primaryButton.green").is(":visible")) {
-            return $(".joinMeetingButtonContainer .primaryButton.green");
+        if ($(".enterHolder .enter").is(":visible")) {
+            return $(".enterHolder .enter");
         }
     }
 
