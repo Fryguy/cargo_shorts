@@ -8,7 +8,7 @@ targets:
   cargo_shorts:
     main: src/cargo_shorts.cr
 
-crystal: 0.22.0
+crystal: 0.32.0
 
 license: MIT
 

@@ -33,7 +33,7 @@ get "/start_meeting" do |env|
 
     env.redirect to("/")
   rescue err
-    env.redirect to("/", {"error" => err.message})
+    env.redirect to("/", {"error" => err.message.to_s})
   end
 end
 
@@ -43,7 +43,7 @@ get "/stop_meeting" do |env|
 
     env.redirect to("/")
   rescue err
-    env.redirect to("/", {"error" => err.message})
+    env.redirect to("/", {"error" => err.message.to_s})
   end
 end
 
